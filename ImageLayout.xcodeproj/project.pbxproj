@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		98036BBA20C98DE6007610F3 /* InboxActivityLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 98036BB720C98DE6007610F3 /* InboxActivityLayout.m */; };
 		98036BBB20C98DE6007610F3 /* InboxCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98036BB920C98DE6007610F3 /* InboxCardView.m */; };
-		98036BBD20C98E92007610F3 /* ImageLayout-IOS.podpec.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 98036BBC20C98E92007610F3 /* ImageLayout-IOS.podpec.podspec */; };
+		98036BC120C991A0007610F3 /* ImageLayout-IOS.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 98036BC020C991A0007610F3 /* ImageLayout-IOS.podspec */; };
 		98115AAA20C91C8D00833674 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98115AA020C91C8D00833674 /* AppDelegate.m */; };
 		98115AAB20C91C8D00833674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98115AA120C91C8D00833674 /* Assets.xcassets */; };
 		98115AAC20C91C8D00833674 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98115AA220C91C8D00833674 /* LaunchScreen.storyboard */; };
@@ -48,7 +48,7 @@
 		98036BB720C98DE6007610F3 /* InboxActivityLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboxActivityLayout.m; sourceTree = "<group>"; };
 		98036BB820C98DE6007610F3 /* InboxCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InboxCardView.h; sourceTree = "<group>"; };
 		98036BB920C98DE6007610F3 /* InboxCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboxCardView.m; sourceTree = "<group>"; };
-		98036BBC20C98E92007610F3 /* ImageLayout-IOS.podpec.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ImageLayout-IOS.podpec.podspec"; sourceTree = "<group>"; };
+		98036BC020C991A0007610F3 /* ImageLayout-IOS.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ImageLayout-IOS.podspec"; sourceTree = "<group>"; };
 		98115A6920C91BA100833674 /* ImageLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98115A8120C91BA600833674 /* ImageLayoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageLayoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98115A8C20C91BA600833674 /* ImageLayoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageLayoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +109,7 @@
 		98115A6020C91BA100833674 = {
 			isa = PBXGroup;
 			children = (
-				98036BBC20C98E92007610F3 /* ImageLayout-IOS.podpec.podspec */,
+				98036BC020C991A0007610F3 /* ImageLayout-IOS.podspec */,
 				98036BB520C98DE6007610F3 /* ImageLayout */,
 				98115A9E20C91C8D00833674 /* ImageLayoutDemo */,
 				98115A6A20C91BA100833674 /* Products */,
@@ -252,11 +252,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98036BBD20C98E92007610F3 /* ImageLayout-IOS.podpec.podspec in Resources */,
 				98115AC520C9221D00833674 /* 3.png in Resources */,
 				98115AC320C9221D00833674 /* 4.png in Resources */,
 				98115AC220C9221D00833674 /* 0.png in Resources */,
 				98115AC420C9221D00833674 /* 2.png in Resources */,
+				98036BC120C991A0007610F3 /* ImageLayout-IOS.podspec in Resources */,
 				98115ABB20C91D6100833674 /* undo_button_108x108.png in Resources */,
 				98115AAB20C91C8D00833674 /* Assets.xcassets in Resources */,
 				98115AAD20C91C8D00833674 /* Main.storyboard in Resources */,
