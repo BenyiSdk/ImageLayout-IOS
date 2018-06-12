@@ -78,6 +78,19 @@
     // Dispose of any resources that can be recreated.
     
 }
+-(void)importPhoto:(NSString *)floder{
+    if([_inboxLayout isReady]){
+        return;
+    }
+    NSString *model=_array[_showIndex];
+    [_array removeObject:model];
+    [_inboxLayout bottomPhotoToFloder:@""];
+}
+
+
+
+
+
 -(NSMutableArray *)getSource{
     return _array;
 }
@@ -108,14 +121,7 @@
 -(void)bottomAction:(NSString *)name{
     
 }
--(void)importPhoto:(NSString *)floder{
-    if([_inboxLayout isReady]){
-        return;
-    }
-    NSString *model=_array[_showIndex];
-    [_array removeObject:model];
-    [_inboxLayout bottomPhotoToFloder:@""];
-}
+
 - (CGRect)getTopHideRect{
     return  _trash.frame;
 }
@@ -153,6 +159,10 @@
 -(void)sigleClick:(UIView *)cardView data:(id)data{
     NSLog(@"111");
 }
+
+
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _topArray.count;
 }

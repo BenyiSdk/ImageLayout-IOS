@@ -28,16 +28,49 @@
 -(CGRect)getBottomHideRect;
 @end
 @protocol InboxActivityLayoutActionDelegate <NSObject>
+/**
+ *撤销
+ */
 -(void)undoAction;
+/**
+ *动画状态改变
+ */
 -(void)animationStateChange:(BOOL)isStart;
+/**
+ *下一个响应
+ */
 -(void)nextAction;
+/**
+ *上一个响应
+ */
 -(void)prevAction;
+/**
+ *撤销跳转图片
+ */
 -(void)undoSelectAction;
+/**
+ *上滑响应
+ */
 -(void)topAction;
+/**
+ *下滑响应
+ */
 -(void)bottomAction;
+/**
+ *下滑响应
+ */
 -(void)bottomAction:(NSString *)name;
+/**
+ *cardView加载资源文件
+ */
 -(void)loadResourceToCardView:(id)data view:(UIView *)view;
+/**
+ *添加view到CardView
+ */
 -(void)addViewToCardView:(UIView *)cardView data:(id)data;
+/**
+ *单击
+ */
 -(void)sigleClick:(UIView *)cardView data:(id)data;
 @end
 
@@ -48,5 +81,8 @@
 -(void)initFromPosition:(NSUInteger)position;
 -(BOOL)isReady;
 -(void)bottomPhotoToFloder:(NSString *)floder;
+/**
+ *刷新当前的View
+ */
 -(void)refreshShowCardView;
 @end
