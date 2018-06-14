@@ -304,7 +304,7 @@
     if(!self.showInboxCardView){
         return;
     }
-    [self bottomAction];
+     [self.delegate bottomAction];
 }
 -(void)bottomAction{
     [self initAnimate];
@@ -341,6 +341,118 @@
     [self addAnimator:@"createLeftShowAnimator:" view:self.bottomInboxCardView];
     [self startAnimate:nil];
 }
+
+/**
+ * 撤销右划
+ */
+-(void)undoRight{
+    InboxCardView *cardView1 = self.bottomInboxCardView;
+    InboxCardView *cardView2 = self.showInboxCardView;
+    self.inboxCardView3 = self.leftInboxCardView;
+    self.leftInboxCardView = cardView2;
+    self.showInboxCardView = cardView1;
+    self.bottomInboxCardView = nil;
+    [self initAnimate];
+    [self addAnimator:@"createLeftHideAnimator:" view:cardView2];
+    [self addAnimator:@"createLeftShowAnimator:" view:cardView1];
+    [self startAnimate:^(BOOL finished) {
+        self.bottomInboxCardView=[self createCardView:[self.dataSource getShowIndex]+1];
+        [self layoutSubviews];
+        [self.delegate undoAction];
+    }];
+}
+
+/**
+ * 撤销左划
+ */
+-(void)undoLeft{
+    InboxCardView *cardView1 = self.leftInboxCardView;
+    InboxCardView *cardView2 = self.showInboxCardView;
+    self.inboxCardView3 = self.bottomInboxCardView;
+    self.bottomInboxCardView = cardView2;
+    self.showInboxCardView = cardView1;
+    [self initAnimate];
+    [self addAnimator:@"createBackwardHideAnimator:" view:cardView2];
+    [self addAnimator:@"createLeftShowAnimator:" view:cardView1];
+    [self startAnimate:^(BOOL finished) {
+        self.leftInboxCardView=[self createCardView:[self.dataSource getShowIndex]-1];
+        [self layoutSubviews];
+        [self.delegate undoAction];
+    }];
+}
+
+/**
+ * 恢复向下滑动
+ *
+ * @param index       资源文件index
+ */
+-(void)undoBottom:(NSInteger)index{
+    InboxCardView *tempCard=[self createCardView:index];
+    __weak InboxCardView *inboxCardView =tempCard;
+    if (self.showInboxCardView != nil) {
+        [self addCardViewAfterToLayout:inboxCardView cardView:self.showInboxCardView];
+    } else if (self.leftInboxCardView != nil) {
+        [self addCardViewToLayout:inboxCardView cardView:self.leftInboxCardView];
+    } else {
+        [self addCardViewToLayout:inboxCardView];
+    }
+    [self initBottomShowCardView:inboxCardView rect:[self.dataSource getBottomHideRect]];
+    [self.bottomInboxCardView removeFromSuperview];
+    self.bottomInboxCardView = nil;
+    [self initAnimate];
+    [self addAnimator:@"createBackwardHideAnimator:" view:self.showInboxCardView];
+    [self addAnimator:@"createLeftShowAnimator:" view:inboxCardView];
+    [self startAnimate:^(BOOL finished) {
+        self.bottomInboxCardView=self.showInboxCardView;
+        self.showInboxCardView=inboxCardView;
+        [self layoutSubviews];
+        [self.delegate undoAction];
+    }];
+}
+
+
+/**
+ * 恢复向上滑动
+ *
+ * @param index 资源文件Index
+ */
+-(void)undoTop:(NSInteger)index{
+    self.inboxCardView3 = self.bottomInboxCardView;
+    self.bottomInboxCardView = nil;
+    [self initAnimate];
+    InboxCardView *tempCard=[self createCardView:index];
+    __weak InboxCardView *cardView =tempCard;
+    if (self.showInboxCardView != nil) {
+        [self addCardViewAfterToLayout:cardView cardView:self.showInboxCardView];
+    } else if (self.leftInboxCardView != nil) {
+        [self addCardViewToLayout:cardView cardView:self.leftInboxCardView];
+    } else {
+        [self addCardViewToLayout:cardView];
+    }
+    [self initTopShowCardView:cardView rect:[self.dataSource getTopHideRect]];
+    [self addAnimator:@"createBackwardHideAnimator:" view:self.showInboxCardView];
+    [UIView animateWithDuration:0.2f animations:^{
+        [self createTopShowAnimator:cardView];
+    } completion:^(BOOL finished) {
+        self->animateArray=nil;
+        self.bottomInboxCardView=self.showInboxCardView;
+        self.showInboxCardView=cardView;
+        [self layoutSubviews];
+        [self.delegate undoAction];
+    }];
+    [self startAnimate:nil];
+}
+
+/**
+ * 恢复跳转position
+ *
+ * @param position position
+ */
+-(void)undoSelect:(NSInteger)position{
+    [self initCardViews:position];
+    [self.delegate undoSelectAction];
+}
+
 /**
  * 初始化动画数组
  */
@@ -455,6 +567,53 @@
 }
 
 /**
+ * 创建从上面出现的动画
+ *
+ * @param cardView 动画执行的View
+ */
+-(void)createTopShowAnimator:(InboxCardView*)cardView{
+    if (cardView == nil) {
+        return;
+    }
+    cardView.transform = CGAffineTransformIdentity;
+    cardView.alpha = 1.0f;
+}
+
+/**
+ * 初始化从顶部出现的CardView的信息
+ *
+ * @param cardView 出现的CardView
+ * @param rect     出现的CardView的区域
+ */
+-(void)initTopShowCardView:(InboxCardView *)cardView rect:(CGRect)rect{
+    CGFloat f1 = rect.size.width / cardView.frame.size.width;
+    CGFloat f2 = rect.size.height/ cardView.frame.size.height;
+    CGAffineTransform translate_transform = CGAffineTransformTranslate(cardView.transform,rect.origin.x-cardView.frame.size.width * (1.0F - f1) / 2.0F, rect.origin.y-cardView.frame.size.height * (1.0F - f2) / 2.0F);
+     CGAffineTransform translate_transform1 =  CGAffineTransformRotate(translate_transform, 10.0f*((CGFloat)M_PI)/180.0f);
+    cardView.transform = CGAffineTransformScale(translate_transform1,f1,f2);
+    cardView.alpha = 0.0f;
+    cardView.hidden=NO;
+    [cardView loadData];
+}
+
+/**
+ * 初始化从底部出现的CardView的信息
+ *
+ * @param cardView 出现的CardView
+ * @param rect     出现的CardView的区域
+ */
+-(void)initBottomShowCardView:(InboxCardView *)cardView rect:(CGRect)rect {
+    CGFloat f1 = rect.size.width / cardView.frame.size.width;
+    CGFloat f2 = rect.size.height/ cardView.frame.size.height;
+   CGAffineTransform translate_transform = CGAffineTransformTranslate(cardView.transform,rect.origin.x-cardView.frame.size.width * (1.0F - f1) / 2.0F, rect.origin.y-cardView.frame.size.height * (1.0F - f2) / 2.0F);
+    CGAffineTransform translate_transform1 =  CGAffineTransformRotate(translate_transform, 0);
+    cardView.transform = CGAffineTransformScale(translate_transform1,f1,f2);
+    cardView.alpha = 0.2f;
+    cardView.hidden=NO;
+    [cardView loadData];
+}
+
+/**
  * 初始化底部CardView的信息
  *
  * @param cardView 初始化的View
@@ -558,9 +717,11 @@
  */
 -(InboxCardView*)createCardView:(NSInteger)position{
     id resourceData = [self getShowResoureData:position];
-    if (resourceData == nil)
-        return nil;
-    return [self createCardViewFromData:resourceData];
+    if (resourceData == nil){
+         return nil;
+    }
+    InboxCardView *cardView=[self createCardViewFromData:resourceData];
+    return cardView;
 }
 
 /**
@@ -589,6 +750,36 @@
     }
     [cardView setTransform:CGAffineTransformIdentity];
     [self addSubview:cardView];
+}
+/**
+ * 将CardView添加到Layout中
+ *
+ * @param cardView cardView
+ */
+-(void)addCardViewToLayout:(InboxCardView*)cardView cardView:(InboxCardView *)cardView1{
+    if (cardView == nil||cardView1==nil) {
+        return;
+    }
+    NSArray *views=[self subviews];
+    for (int i = 0; i <views.count; i++) {
+        if (views[i]== cardView1) {
+            [cardView setTransform:CGAffineTransformIdentity];
+            [self insertSubview:cardView atIndex:i];
+            return;
+        }
+    }
+}
+/**
+ * 在cardView2的位置的后面上插入cardView
+ *
+ * @param cardView 插入的CardView
+ * @param cardView1 对比的CardView
+ */
+-(void)addCardViewAfterToLayout:(InboxCardView*)cardView cardView:(InboxCardView *)cardView1{
+    if (cardView == nil || cardView1 == nil) {
+        return;
+    }
+    [self insertSubview:cardView aboveSubview:cardView1];
 }
 
 /**

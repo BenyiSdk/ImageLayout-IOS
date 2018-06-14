@@ -85,4 +85,26 @@
  *刷新当前的View
  */
 -(void)refreshShowCardView;
+/**
+ *撤销右划
+ */
+-(void)undoRight;
+/**
+ *撤销左划
+ */
+-(void)undoLeft;
+
+/**
+ *撤销下划
+ */
+-(void)undoBottom:(NSInteger)index;
+/**
+ *撤销上划
+ */
+-(void)undoTop:(NSInteger)index;
+
+/**
+ *撤销选择
+ */
+-(void)undoSelect:(NSInteger)position;
 @end

@@ -24,6 +24,8 @@
 		98115AC320C9221D00833674 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 98115ABE20C9221C00833674 /* 4.png */; };
 		98115AC420C9221D00833674 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 98115ABF20C9221C00833674 /* 2.png */; };
 		98115AC520C9221D00833674 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 98115AC020C9221C00833674 /* 3.png */; };
+		985F41C220D20AFB006F2FE6 /* ActionHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 985F41C120D20AFB006F2FE6 /* ActionHistory.m */; };
+		985F41C520D21B5E006F2FE6 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 985F41C420D21B5E006F2FE6 /* Action.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,10 @@
 		98115ABE20C9221C00833674 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
 		98115ABF20C9221C00833674 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		98115AC020C9221C00833674 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		985F41C020D20AFB006F2FE6 /* ActionHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionHistory.h; sourceTree = "<group>"; };
+		985F41C120D20AFB006F2FE6 /* ActionHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionHistory.m; sourceTree = "<group>"; };
+		985F41C320D21B5E006F2FE6 /* Action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		985F41C420D21B5E006F2FE6 /* Action.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,10 @@
 				98036BB720C98DE6007610F3 /* InboxActivityLayout.m */,
 				98036BB820C98DE6007610F3 /* InboxCardView.h */,
 				98036BB920C98DE6007610F3 /* InboxCardView.m */,
+				985F41C020D20AFB006F2FE6 /* ActionHistory.h */,
+				985F41C120D20AFB006F2FE6 /* ActionHistory.m */,
+				985F41C320D21B5E006F2FE6 /* Action.h */,
+				985F41C420D21B5E006F2FE6 /* Action.m */,
 			);
 			path = ImageLayout;
 			sourceTree = "<group>";
@@ -290,6 +300,8 @@
 			files = (
 				98115AB020C91C8D00833674 /* ViewController.m in Sources */,
 				98115AAF20C91C8D00833674 /* main.m in Sources */,
+				985F41C520D21B5E006F2FE6 /* Action.m in Sources */,
+				985F41C220D20AFB006F2FE6 /* ActionHistory.m in Sources */,
 				98115AAA20C91C8D00833674 /* AppDelegate.m in Sources */,
 				98036BBA20C98DE6007610F3 /* InboxActivityLayout.m in Sources */,
 				98036BBB20C98DE6007610F3 /* InboxCardView.m in Sources */,

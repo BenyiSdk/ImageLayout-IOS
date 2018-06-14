@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "InboxActivityLayout.h"
+#import "ActionHistory.h"
 @interface ViewController ()<InboxActivityLayoutDataSource,InboxActivityLayoutActionDelegate,UITableViewDelegate,UITableViewDataSource>
 @property InboxActivityLayout *inboxLayout;
 @property NSMutableArray *array;
@@ -17,6 +18,7 @@
 @property UIImageView *trash;
 @property UITextView *bottomView;
 @property BOOL isList;
+@property ActionHistory *actionHistory;
 @end
 
 @implementation ViewController
@@ -31,6 +33,7 @@
     //自适应图片宽高比例
     _undo.contentMode = UIViewContentModeScaleAspectFit;
     _undo.frame=CGRectMake(10, 0, 54, 54);
+    _undo.userInteractionEnabled=YES;
     [self.view addSubview:_undo];
     
     UIImage *trashImage=[UIImage imageNamed:@"trash_can_112x112.png"];
@@ -60,6 +63,11 @@
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     
     [_trash addGestureRecognizer:tapGesturRecognizer];
+    
+    UITapGestureRecognizer *tapGesturRecognizer1=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(startUndo:)];
+    
+    [_undo addGestureRecognizer:tapGesturRecognizer1];
+    _actionHistory=[[ActionHistory alloc] init];
 }
 
 -(void)tapAction:(id)tap{
@@ -76,13 +84,46 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
+}
+
+/**
+ *开始撤销
+ */
+-(void)startUndo:(id)tap{
+    [UIView animateWithDuration:0.05 animations:^{
+        self->_undo.transform=CGAffineTransformMakeScale(1.16, 1.16);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.05 animations:^{
+            self->_undo.transform=CGAffineTransformMakeScale(1, 1);
+        }];
+    }];
+    Action *action=[_actionHistory getLastAction];
+    if(action!=nil){
+        if ([action isRightAction]){
+            _showIndex++;
+            [self.inboxLayout undoRight];
+        } else if ([action isLeftAction]) {
+            _showIndex--;
+            [self.inboxLayout undoLeft];
+        } else if ([action isTopAction]) {
+            [_array insertObject:[action getData] atIndex:_showIndex];
+            [_topArray removeObject:[action getData]];
+            [self.inboxLayout undoTop:[_array indexOfObject:[action getData]]];
+        } else if ([action isBottomAction]) {
+            [_array insertObject:[action getData] atIndex:_showIndex];
+            [self.inboxLayout undoBottom:[_array indexOfObject:[action getData]]];
+        } else if ([action isSelectAction]){
+            _showIndex=[action getOldIndex];
+            [self.inboxLayout undoSelect:[action getOldIndex]];
+        }
+    }
 }
 -(void)importPhoto:(NSString *)floder{
     if([_inboxLayout isReady]){
         return;
     }
     NSString *model=_array[_showIndex];
+    [_actionHistory addBottomAction:@"" name:@"" data:model];
     [_array removeObject:model];
     [_inboxLayout bottomPhotoToFloder:@""];
 }
@@ -100,12 +141,15 @@
 }
 - (void)nextAction{
     _showIndex++;
+    [_actionHistory addLeftAction:@""];
 }
 - (void)prevAction{
     _showIndex--;
+    [_actionHistory addRightAction:@""];
 }
 -(void)topAction{
     [_topArray addObject:[_array objectAtIndex:_showIndex]];
+    [_actionHistory addTopAction:@"" data:[_array objectAtIndex:_showIndex]];
     [_array removeObjectAtIndex:_showIndex];
     [UIView animateWithDuration:0.05 animations:^{
         self->_trash.transform=CGAffineTransformMakeScale(1.16, 1.16);
@@ -159,6 +203,16 @@
 -(void)sigleClick:(UIView *)cardView data:(id)data{
     NSLog(@"111");
 }
+- (void)undoSelectAction{
+    
+}
+- (void)undoAction{
+    
+}
+
+- (void)animationStateChange:(BOOL)isStart {
+    
+}
 
 
 
@@ -170,7 +224,9 @@
     //从队列中取出单元格
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"idd" forIndexPath:indexPath];
     //为单元格的label设置数据
-     cell.imageView.image = [UIImage imageNamed:[_topArray objectAtIndex:indexPath.row]];
+    cell.imageView.image = [UIImage imageNamed:[_topArray objectAtIndex:indexPath.row]];
     return cell;
 }
+
+
 @end
