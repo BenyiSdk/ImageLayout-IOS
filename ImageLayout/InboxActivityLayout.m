@@ -304,7 +304,12 @@
     if(!self.showInboxCardView){
         return;
     }
-     [self.delegate bottomAction];
+    NSString *name=[self.delegate getBottomActionName];
+    if(name==nil){
+        [self bottomAction];
+    }else{
+        [self bottomPhotoToFloder:name];
+    }
 }
 -(void)bottomAction{
     [self initAnimate];
@@ -313,7 +318,7 @@
     [self addAnimator:@"createBackwardHideAnimator:" view:self.showInboxCardView];
     [self startAnimate:^(BOOL finished) {
         [self layoutSubviews];
-        [self.delegate bottomAction];
+        [self.delegate bottomAction:nil];
     }];
 }
 -(BOOL)isReady{

@@ -118,15 +118,7 @@
         }
     }
 }
--(void)importPhoto:(NSString *)floder{
-    if([_inboxLayout isReady]){
-        return;
-    }
-    NSString *model=_array[_showIndex];
-    [_actionHistory addBottomAction:@"" name:@"" data:model];
-    [_array removeObject:model];
-    [_inboxLayout bottomPhotoToFloder:@""];
-}
+
 
 
 
@@ -159,11 +151,31 @@
         }];
     }];
 }
--(void)bottomAction{
-    [self importPhoto:@""];
-}
--(void)bottomAction:(NSString *)name{
+-(NSString *)getBottomActionName{
+    if(_array.count>3){
+        return nil;
+    }else{
+        return @"";
+    }
     
+}
+
+-(void)bottomAction:(NSString *)name{
+    if(name==nil){
+        [_inboxLayout bottomPhotoToFloder:@""];
+    }else{
+        [self importPhoto:name];
+    }
+}
+-(void)importPhoto:(NSString *)floder{
+    if([_inboxLayout isReady]){
+        return;
+    }
+    if(_showIndex<_array.count){
+        NSString *model=_array[_showIndex];
+        [_actionHistory addBottomAction:@"" name:@"" data:model];
+        [_array removeObject:model];
+    }
 }
 
 - (CGRect)getTopHideRect{

@@ -56,8 +56,14 @@
     [self setAlpha:1.0];
 }
 -(void)moveToBottom:(CGFloat)x y:(CGFloat)y proportion:(CGFloat)proportion {
-    CGAffineTransform translate_transform = CGAffineTransformMakeTranslation( 0, 0.5f * y);
-    self.transform = translate_transform;
+//    CGAffineTransform translate_transform = CGAffineTransformMakeTranslation( 0, 0.5f * y);
+//    self.transform = translate_transform;
+    CGFloat temp = 0.0006f*UIScreen.mainScreen.nativeScale;
+    CGFloat scale=1.0f - fabs(temp * y);
+    CGAffineTransform translate_transform = CGAffineTransformMakeTranslation(x,y);
+    CGAffineTransform translate_transform1=CGAffineTransformRotate(translate_transform, (-y * 12.0F / 800)*((CGFloat)M_PI) / 180.0);
+    CGAffineTransform translate_transform2=CGAffineTransformScale(translate_transform1,scale , scale);
+    self.transform = translate_transform2;
 }
 -(void)moveToTop:(CGFloat)x y:(CGFloat)y proportion:(CGFloat)proportion{
     CGFloat temp = 0.0006f*UIScreen.mainScreen.nativeScale;

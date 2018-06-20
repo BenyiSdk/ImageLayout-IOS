@@ -53,9 +53,9 @@
  */
 -(void)topAction;
 /**
- *下滑响应
+ *返回响应的相册名称
  */
--(void)bottomAction;
+-(NSString *)getBottomActionName;
 /**
  *下滑响应
  */
