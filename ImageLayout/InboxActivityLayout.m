@@ -75,6 +75,7 @@
 - (void)onPanGesture:(UIPanGestureRecognizer *)gesture{
     //开始滑动
     if (gesture.state == UIGestureRecognizerStateBegan) {
+        
     }
     //结束拖动
     else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
@@ -106,6 +107,7 @@
                 }
             }
             isMoveIng=YES;
+            [self.delegate startMove:self.orientation];
         }
         [self move:self.orientation translatX:translate.x translateY:translate.y];
     }
@@ -186,6 +188,7 @@
     }
 }
 -(void)endMove:(NSUInteger)orientation translatX:(CGFloat)x translateY:(CGFloat)y{
+    [self.delegate endMove];
     isMoveIng=NO;
     float temp1 = 160.0F;
     float temp2 = 120.0F;
@@ -487,6 +490,7 @@
  * 开始动画
  */
 -(void)startAnimate:(void (^ __nullable)(BOOL finished))isFinish{
+    [self.delegate animationStateChange:YES];
     [UIView animateWithDuration:0.1 animations:^{
         for(int i=0;i<self->animateArray.count;i++){
             NSDictionary *dic=self->animateArray[i];
@@ -497,6 +501,7 @@
             func(self, selector, [dic objectForKey:@"view"]) ;
         }
     } completion:^(BOOL finished) {
+        [self.delegate animationStateChange:NO];
         if(isFinish!=nil){
             self->animateArray=nil;
             isFinish(finished);

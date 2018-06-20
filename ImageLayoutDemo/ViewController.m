@@ -226,7 +226,13 @@
     
 }
 
+- (void)startMove:(NSInteger)e{
+    
+}
 
+- (void)endMove{
+    
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

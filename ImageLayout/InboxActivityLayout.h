@@ -72,6 +72,10 @@
  *单击
  */
 -(void)sigleClick:(UIView *)cardView data:(id)data;
+
+-(void)startMove:(NSInteger)e;
+
+-(void)endMove;
 @end
 
 @interface InboxActivityLayout : UIView
