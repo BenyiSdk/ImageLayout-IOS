@@ -19,26 +19,26 @@
     }
     return self;
 }
--(void)addLeftAction:(NSString *)time{
-    Action *action=[Action leftAction:time];
+-(void)addLeftAction:(NSString *)time name:(NSString *)name{
+    Action *action=[Action leftAction:time folder:name];
     [array addObject:action];
 }
--(void)addRightAction:(NSString *)time{
-    Action *action=[Action rightAction:time];
+-(void)addRightAction:(NSString *)time name:(NSString *)name{
+    Action *action=[Action rightAction:time folder:name];
     [array addObject:action];
 }
 
--(void)addTopAction:(NSString *)time data:(id)data{
-    Action *action=[Action topAction:time data:data];
+-(void)addTopAction:(NSString *)time name:(NSString *)name data:(id)data{
+    Action *action=[Action topAction:time folder:name data:data];
     [array addObject:action];
 }
 
 -(void)addBottomAction:(NSString *)time name:(NSString *)name data:(id)data{
-    Action *action=[Action bottomAction:time floder:name data:data];
+    Action *action=[Action bottomAction:time folder:name data:data];
     [array addObject:action];
 }
 
--(Action *)getLastAction{
+-(Action *)pop{
     if(array.count==0){
         return nil;
     }
@@ -46,5 +46,17 @@
     [array removeObject:action];
     return action;
 }
-
+-(Action*)getLastAction{
+    if(array.count==0){
+        return nil;
+    }
+    Action *action=array.lastObject;
+    return action;
+}
+-(NSMutableArray *)getActions{
+    return array;
+}
+-(void)loadActions:(NSMutableArray *)actions{
+    [array addObjectsFromArray:actions];
+}
 @end

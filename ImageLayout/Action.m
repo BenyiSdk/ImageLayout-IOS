@@ -21,37 +21,40 @@
 @property (nonatomic) NSInteger newIndex;
 @end
 @implementation Action
-+(instancetype)leftAction:(NSString *)time{
++(instancetype)leftAction:(NSString *)time folder:(NSString *)folder{
     Action *action=[[Action alloc] init];
     action.action=LEFT_ACITON;
+    action.name=folder;
     action.time=time;
     return action;
 }
-+(instancetype)rightAction:(NSString *)time{
++(instancetype)rightAction:(NSString *)time folder:(NSString *)folder{
     Action *action=[[Action alloc] init];
     action.action=RIGHT_ACITON;
     action.time=time;
     return action;
 }
-+(instancetype)topAction:(NSString *)time data:(id)data{
++(instancetype)topAction:(NSString *)time folder:(NSString *)folder data:(id)data{
     Action *action=[[Action alloc] init];
     action.action=TOP_ACITON;
     action.time=time;
     action.data=data;
+    action.name=folder;
     return action;
 }
-+(instancetype)bottomAction:(NSString *)time floder:(NSString *)floder data:(id)data{
++(instancetype)bottomAction:(NSString *)time folder:(NSString *)folder data:(id)data{
     Action *action=[[Action alloc] init];
     action.action=BOTTOM_ACITON;
     action.time=time;
-    action.name=floder;
+    action.name=folder;
     action.data=data;
     return action;
 }
-+(instancetype)selectAction:(NSString *)time oldIndex:(NSInteger)oldIndex newIndex:(NSInteger)newIndex{
++(instancetype)selectAction:(NSString *)time folder:(NSString *)folder oldIndex:(NSInteger)oldIndex newIndex:(NSInteger)newIndex{
     Action *action=[[Action alloc] init];
     action.action=SELECT_ACITON;
     action.time=time;
+    action.name=folder;
     action.oldIndex=oldIndex;
     action.newIndex=newIndex;
     return action;

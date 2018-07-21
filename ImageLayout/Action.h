@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface Action : NSObject
-+(instancetype)leftAction:(NSString *)time;
-+(instancetype)rightAction:(NSString *)time;
-+(instancetype)topAction:(NSString *)time data:(id)data;
-+(instancetype)bottomAction:(NSString *)time floder:(NSString *)floder data:(id)data;
-+(instancetype)selectAction:(NSString *)time oldIndex:(NSInteger)oldIndex newIndex:(NSInteger)newIndex;
++(instancetype)leftAction:(NSString *)time folder:(NSString *)folder;
++(instancetype)rightAction:(NSString *)time folder:(NSString *)folder;
++(instancetype)topAction:(NSString *)time folder:(NSString *)folder data:(id)data;
++(instancetype)bottomAction:(NSString *)time folder:(NSString *)folder data:(id)data;
++(instancetype)selectAction:(NSString *)time folder:(NSString *)folder oldIndex:(NSInteger)oldIndex newIndex:(NSInteger)newIndex;
 
 -(BOOL)isLeftAction;
 -(BOOL)isRightAction;

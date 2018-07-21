@@ -97,7 +97,7 @@
             self->_undo.transform=CGAffineTransformMakeScale(1, 1);
         }];
     }];
-    Action *action=[_actionHistory getLastAction];
+    Action *action=[_actionHistory pop];
     if(action!=nil){
         if ([action isRightAction]){
             _showIndex++;
@@ -133,15 +133,15 @@
 }
 - (void)nextAction{
     _showIndex++;
-    [_actionHistory addLeftAction:@""];
+    [_actionHistory addLeftAction:@"" name:@""];
 }
 - (void)prevAction{
     _showIndex--;
-    [_actionHistory addRightAction:@""];
+    [_actionHistory addRightAction:@"" name:@""];
 }
 -(void)topAction{
     [_topArray addObject:[_array objectAtIndex:_showIndex]];
-    [_actionHistory addTopAction:@"" data:[_array objectAtIndex:_showIndex]];
+    [_actionHistory addTopAction:@"" name:@"" data:[_array objectAtIndex:_showIndex]];
     [_array removeObjectAtIndex:_showIndex];
     [UIView animateWithDuration:0.05 animations:^{
         self->_trash.transform=CGAffineTransformMakeScale(1.16, 1.16);
