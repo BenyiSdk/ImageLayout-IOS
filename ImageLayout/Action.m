@@ -12,14 +12,6 @@
 #define TOP_ACITON @"TOP"
 #define RIGHT_ACITON @"RIGHT"
 #define BOTTOM_ACITON @"BOTTOM"
-@interface Action ()
-@property (nonatomic,strong)  NSString *action;
-@property (nonatomic,strong)  NSString *time;
-@property (nonatomic,strong) id data;
-@property (nonatomic,strong) NSString *name;
-@property (nonatomic) NSInteger oldIndex;
-@property (nonatomic) NSInteger newIndex;
-@end
 @implementation Action
 +(instancetype)leftAction:(NSString *)time folder:(NSString *)folder{
     Action *action=[[Action alloc] init];

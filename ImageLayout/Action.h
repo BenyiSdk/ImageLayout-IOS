@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface Action : NSObject
+@property (nonatomic,strong)  NSString *action;
+@property (nonatomic,strong)  NSString *time;
+@property (nonatomic,strong) id data;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic) NSInteger oldIndex;
+@property (nonatomic) NSInteger newIndex;
 +(instancetype)leftAction:(NSString *)time folder:(NSString *)folder;
 +(instancetype)rightAction:(NSString *)time folder:(NSString *)folder;
 +(instancetype)topAction:(NSString *)time folder:(NSString *)folder data:(id)data;

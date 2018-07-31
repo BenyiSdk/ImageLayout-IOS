@@ -56,7 +56,7 @@
 -(NSMutableArray *)getActions{
     return array;
 }
--(void)loadActions:(NSMutableArray *)actions{
+-(void)loadActions:(NSArray *)actions{
     [array addObjectsFromArray:actions];
 }
 @end

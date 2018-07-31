@@ -44,6 +44,11 @@
  *上一个响应
  */
 -(void)prevAction;
+
+/**
+ *第一张右划的响应
+ */
+-(void)leftFirstAction;
 /**
  *撤销跳转图片
  */

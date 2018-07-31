@@ -43,5 +43,5 @@
 /**
  *加载记录
  */
--(void)loadActions:(NSMutableArray *)actions;
+-(void)loadActions:(NSArray *)actions;
 @end

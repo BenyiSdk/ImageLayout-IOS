@@ -233,7 +233,9 @@
 - (void)endMove{
     
 }
-
+-(void)leftFirstAction{
+    
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _topArray.count;

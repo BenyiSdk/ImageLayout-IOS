@@ -250,7 +250,8 @@
         return;
     }
     if(!self.leftInboxCardView){
-         [self restore];
+        [self restore];
+        [self.delegate leftFirstAction];
         return;
     }
     [self rightAction];
